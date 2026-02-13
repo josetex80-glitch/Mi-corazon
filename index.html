@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Corazón</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            background-color: #ff0000;
+            transform: rotate(-45deg);
+            animation: beat 1s infinite alternate;
+            box-shadow: 0 0 40px #ff0000;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #ff0000;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 50px;
+        }
+
+        @keyframes beat {
+            from { transform: scale(1) rotate(-45deg); }
+            to { transform: scale(1.2) rotate(-45deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart"></div>
+</body>
+  </html>
+  
