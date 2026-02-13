@@ -1,34 +1,57 @@
-import os
-import datetime
 
-# Coordenadas del corazón: (Semanas de desplazamiento, Día de la semana)
-# Eje Y: Día 0 = Domingo (arriba), Día 6 = Sábado (abajo)
-# Eje X: Semanas de izquierda a derecha
-heart_pixels = [
-    (1,0), (2,0), (4,0), (5,0),
-    (0,1), (1,1), (2,1), (3,1), (4,1), (5,1), (6,1),
-    (0,2), (1,2), (2,2), (3,2), (4,2), (5,2), (6,2),
-    (0,3), (1,3), (2,3), (3,3), (4,3), (5,3), (6,3),
-    (1,4), (2,4), (3,4), (4,4), (5,4),
-    (2,5), (3,5), (4,5),
-    (3,6)
-]
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Corazón</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
 
-# Buscamos un domingo de hace 20 semanas para que el corazón quede centrado en tu perfil
-today = datetime.date.today()
-days_to_last_sunday = (today.weekday() + 1) % 7
-last_sunday = today - datetime.timedelta(days=days_to_last_sunday)
-start_date = last_sunday - datetime.timedelta(weeks=20)
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            background-color: #ff0000;
+            transform: rotate(-45deg);
+            animation: beat 1s infinite alternate;
+            box-shadow: 0 0 40px #ff0000;
+        }
 
-print("Pintando el corazón en tu historial de Git...")
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #ff0000;
+            border-radius: 50%;
+        }
 
-for week, day in heart_pixels:
-    # Calculamos la fecha exacta de cada "píxel"
-    commit_date = start_date + datetime.timedelta(weeks=week, days=day)
-    date_str = commit_date.strftime("%Y-%m-%dT12:00:00")
-    
-    # Creamos un commit vacío en esa fecha
-    command = f'git commit --allow-empty --date="{date_str}" -m "Latido de código"'
-    os.system(command)
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
 
-print("¡Listo! El corazón ha sido dibujado localmente.")
+        .heart::after {
+            top: 0;
+            left: 50px;
+        }
+
+        @keyframes beat {
+            from { transform: scale(1) rotate(-45deg); }
+            to { transform: scale(1.2) rotate(-45deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart"></div>
+</body>
+</html>
